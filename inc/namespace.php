@@ -214,12 +214,12 @@ function register_prepublish_check( $id, $options ) {
  */
 function get_check_status_for_api( array $data ) : ?stdClass {
 	/** @var array */
-	$post = get_post( $data['id'], ARRAY_A );
+	$post = get_post( $data['id'] ?? null, ARRAY_A );
 	if ( empty( $post ) ) {
 		return null;
 	}
-	$meta = get_post_meta( $data['id'] );
-	$terms = get_post_terms( $data['id'] );
+	$meta = get_post_meta( $post['ID'] );
+	$terms = get_post_terms( $post['ID'] );
 
 	$statuses = get_check_status( $post, $meta, $terms );
 	$status_data = [];
